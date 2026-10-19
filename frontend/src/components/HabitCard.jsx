@@ -12,8 +12,10 @@ export default function HabitCard({ habit, selected, busy, onSelect, onToggleTod
       </button>
 
       <div className="stats">
-        <span title="Total de días cumplidos">✅ {habit.totalCompleted} {habit.totalCompleted === 1 ? 'día' : 'días'}</span>
-        <span title="Racha actual">🔥 {habit.currentStreak} de racha</span>
+        <span>
+          {habit.totalCompleted} {habit.totalCompleted === 1 ? 'día cumplido' : 'días cumplidos'}
+        </span>
+        <span>Racha: {habit.currentStreak}</span>
       </div>
 
       <div className="card-actions">
@@ -23,7 +25,7 @@ export default function HabitCard({ habit, selected, busy, onSelect, onToggleTod
           onClick={onToggleToday}
           disabled={busy}
         >
-          {habit.completedToday ? '✓ Hecho hoy' : 'Marcar hoy'}
+          {habit.completedToday ? 'Hecho hoy' : 'Marcar hoy'}
         </button>
         <button type="button" className="btn small" onClick={onEdit} disabled={busy}>
           Editar
