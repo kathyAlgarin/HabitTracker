@@ -1,0 +1,22 @@
+# .NET
+bin/
+obj/
+.vs/
+*.user
+
+# Base de datos local (se crea sola al iniciar la API)
+*.db
+*.db-shm
+*.db-wal
+
+# Node / Vite
+node_modules/
+dist/
+.env
+.env.local
+
+# Editores / herramientas
+.vscode/
+.idea/
+.claude/
+.DS_Store

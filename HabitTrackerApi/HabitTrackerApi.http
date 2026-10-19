@@ -1,0 +1,40 @@
+@host = http://localhost:5285
+
+### Listar hábitos
+GET {{host}}/api/habits
+Accept: application/json
+
+### Crear hábito
+POST {{host}}/api/habits
+Content-Type: application/json
+
+{
+  "name": "Leer 20 minutos",
+  "description": "Antes de dormir",
+  "startDate": "2026-10-01"
+}
+
+### Obtener un hábito
+GET {{host}}/api/habits/1
+
+### Editar hábito
+PUT {{host}}/api/habits/1
+Content-Type: application/json
+
+{
+  "name": "Leer 30 minutos",
+  "description": null,
+  "startDate": "2026-10-01"
+}
+
+### Días cumplidos de un hábito
+GET {{host}}/api/habits/1/completions
+
+### Marcar un día como cumplido
+PUT {{host}}/api/habits/1/completions/2026-10-18
+
+### Desmarcar un día
+DELETE {{host}}/api/habits/1/completions/2026-10-18
+
+### Eliminar hábito
+DELETE {{host}}/api/habits/1
