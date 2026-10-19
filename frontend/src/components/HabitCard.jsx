@@ -1,4 +1,4 @@
-import { formatDate } from '../utils/dates'
+import { formatDate, todayIso } from '../utils/dates'
 
 export default function HabitCard({ habit, selected, busy, onSelect, onToggleToday, onEdit, onDelete }) {
   return (
@@ -6,7 +6,9 @@ export default function HabitCard({ habit, selected, busy, onSelect, onToggleTod
       <button type="button" className="habit-card-main" onClick={onSelect}>
         <strong>{habit.name}</strong>
         {habit.description && <span className="muted">{habit.description}</span>}
-        <span className="muted small">Desde el {formatDate(habit.startDate)}</span>
+        <span className="muted small">
+          {habit.startDate > todayIso() ? 'Empieza el' : 'Desde el'} {formatDate(habit.startDate)}
+        </span>
       </button>
 
       <div className="stats">

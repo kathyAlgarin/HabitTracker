@@ -79,9 +79,9 @@ La API valida todo (el frontend repite las mismas reglas para avisar antes de en
 
 - Nombre obligatorio, de 2 a 100 caracteres, y sin repetir (no distingue mayúsculas).
 - Descripción de máximo 500 caracteres.
-- La fecha de inicio es obligatoria y no puede estar en el futuro.
+- La fecha de inicio es obligatoria y puede ser cualquier fecha (pasada, hoy o futura).
 - Al editar, la fecha de inicio no puede quedar después de un día ya marcado.
-- Solo se pueden marcar días entre la fecha de inicio y hoy.
+- Solo se pueden marcar días entre la fecha de inicio y hoy (si el hábito empieza en el futuro, todavía no se puede marcar ningún día).
 - Un día no se guarda dos veces (índice único en la base de datos); marcarlo de nuevo no da error.
 - Fechas con formato inválido o hábitos inexistentes devuelven 400 / 404 con un mensaje claro.
 

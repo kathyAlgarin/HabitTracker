@@ -9,10 +9,15 @@ export default function HabitCalendar({ habit, completedDates, loading, loadFail
   // App usa key={habit.id}, así que al cambiar de hábito se vuelve al mes actual.
   const [view, setView] = useState({ year: current.year, month: current.month })
 
+  // Se puede navegar entre el mes de inicio y el mes actual (en cualquier orden,
+  // porque la fecha de inicio puede estar en el futuro).
   const start = parseIso(habit.startDate)
+  const startIndex = start.year * 12 + start.month
+  const currentIndex = current.year * 12 + current.month
   const viewIndex = view.year * 12 + view.month
-  const canGoBack = viewIndex > start.year * 12 + start.month
-  const canGoForward = viewIndex < current.year * 12 + current.month
+  const canGoBack = viewIndex > Math.min(startIndex, currentIndex)
+  const canGoForward = viewIndex < Math.max(startIndex, currentIndex)
+  const notStartedYet = habit.startDate > today
 
   function move(delta) {
     const index = viewIndex + delta
@@ -73,7 +78,9 @@ export default function HabitCalendar({ habit, completedDates, loading, loadFail
           ? 'Cargando días…'
           : loadFailed
             ? 'No se pudieron cargar los días cumplidos. Recarga la página para intentarlo de nuevo.'
-            : `${monthCount} ${monthCount === 1 ? 'día cumplido' : 'días cumplidos'} este mes`}
+            : notStartedYet
+              ? `Este hábito empieza el ${formatDate(habit.startDate)}. Podrás marcar días desde esa fecha.`
+              : `${monthCount} ${monthCount === 1 ? 'día cumplido' : 'días cumplidos'} este mes`}
       </p>
     </section>
   )

@@ -14,7 +14,6 @@ function validate(values) {
   if (values.description.length > 500) errors.description = 'La descripción no puede superar los 500 caracteres.'
 
   if (!values.startDate) errors.startDate = 'La fecha de inicio es obligatoria.'
-  else if (values.startDate > todayIso()) errors.startDate = 'La fecha de inicio no puede estar en el futuro.'
 
   return errors
 }
@@ -96,7 +95,6 @@ export default function HabitForm({ habit, onSubmit, onCancel }) {
           name="startDate"
           value={values.startDate}
           onChange={handleChange}
-          max={todayIso()}
           aria-invalid={Boolean(errors.startDate)}
         />
         {errors.startDate && <span className="field-error">{errors.startDate}</span>}

@@ -51,14 +51,14 @@ public class HabitsController : ControllerBase
     public async Task<ActionResult<HabitResponseDto>> Create(HabitRequestDto dto)
     {
         var name = dto.Name.Trim();
-        await ValidateHabit(name, dto.StartDate!.Value, excludeId: null);
+        await ValidateHabit(name, excludeId: null);
         if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
         var habit = new Habit
         {
             Name = name,
             Description = NormalizeDescription(dto.Description),
-            StartDate = dto.StartDate.Value,
+            StartDate = dto.StartDate!.Value,
             CreatedAt = DateTime.UtcNow
         };
 
@@ -77,7 +77,7 @@ public class HabitsController : ControllerBase
 
         var name = dto.Name.Trim();
         var startDate = dto.StartDate!.Value;
-        await ValidateHabit(name, startDate, excludeId: id);
+        await ValidateHabit(name, excludeId: id);
 
         // No se puede mover la fecha de inicio después de un día que ya está marcado.
         var firstCompleted = habit.Completions.Select(c => (DateOnly?)c.Date).Min();
@@ -183,7 +183,7 @@ public class HabitsController : ControllerBase
     private Task<Habit?> FindHabit(int id) =>
         _db.Habits.AsNoTracking().Include(h => h.Completions).FirstOrDefaultAsync(h => h.Id == id);
 
-    private async Task ValidateHabit(string name, DateOnly startDate, int? excludeId)
+    private async Task ValidateHabit(string name, int? excludeId)
     {
         if (name.Length < 2)
         {
@@ -197,11 +197,6 @@ public class HabitsController : ControllerBase
             {
                 ModelState.AddModelError(nameof(HabitRequestDto.Name), $"Ya existe un hábito llamado \"{name}\".");
             }
-        }
-
-        if (startDate > Today)
-        {
-            ModelState.AddModelError(nameof(HabitRequestDto.StartDate), "La fecha de inicio no puede estar en el futuro.");
         }
     }
 
