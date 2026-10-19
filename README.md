@@ -5,6 +5,8 @@ Aplicación web para registrar hábitos y marcar los días en que se cumplen.
 - **API REST:** ASP.NET Core (.NET 10) + Entity Framework Core + SQLite → carpeta [`HabitTrackerApi`](HabitTrackerApi)
 - **Frontend:** React + Vite → carpeta [`frontend`](frontend)
 
+En [DOCUMENTACION.md](DOCUMENTACION.md) se explica en detalle cómo está construida la API y cómo la consume el frontend.
+
 ## Funcionalidades
 
 - Crear, listar, editar y eliminar hábitos (nombre, descripción opcional y fecha de inicio).
